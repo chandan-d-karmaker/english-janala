@@ -16,3 +16,10 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* active class for buttons */
+.active{
+    background-color: #422AD5;
+    border: #422AD5;
+    color: #fff;
+}
