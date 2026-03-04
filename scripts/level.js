@@ -11,31 +11,44 @@ const loadWords = (id) => {
         .then(data => displayWords(data.data));
 }
 
-const displayWords = (words)=>{
+const displayWords = (words) => {
     const wordContainer = document.getElementById("word-container");
-    wordContainer.innerHTML= "";
+    wordContainer.innerHTML = "";
+
+    if (words.length == 0) {
+        wordContainer.innerHTML = `
+        
+        <div class="col-span-full py-16">
+            <img class="mx-auto" src="./assets/alert-error.png" alt="">
+            <p class="bangla-font mb-3  text-[#79716B]">এই Lesson এ এখনো কোন Vocabulary যুক্ত করা হয়নি।</p>
+            <h3 class="text-3xl bangla-font font-medium text-[#292524]">নেক্সট Lesson এ যান</h3>
+        </div>
+        
+        `;
+        return;
+    }
     wordContainer.classList.add('grid', 'grid-cols-1');
     wordContainer.classList.remove('py-16');
 
-    for(const word of words){
+    for (const word of words) {
         const wordCard = document.createElement("div");
-        wordCard.innerHTML = 
-        `
+        wordCard.innerHTML =
+            `
             <div class="text-center bg-base-100 rounded-xl p-10">
-            <h2 class="text-3xl font-bold text-black mb-6">${word.word}</h2>
-            <p class="text-xl font-medium text-black mb-6">Meaning/Pronunciation</p>
-            <h1 class="text-3xl font-bold text-black bangla-font">${word.meaning} / ${word.pronunciation} </h1>
+                <h2 class="text-2xl font-bold text-black mb-6">${word.word? word.word : "Word not found"}</h2>
+                <p class="font-medium text-black mb-6">Meaning/Pronunciation</p>
+                <h1 class="text-2xl font-bold text-black bangla-font">${word.meaning? word.meaning : "Meaning not found" } / ${word.pronunciation? word.pronunciation : "Pronunciation not found" } </h1>
 
-            <div class="flex justify-between mt-14">
-                <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
-                    <i class="fa-solid fa-circle-info"></i>
+                <div class="flex justify-between mt-14">
+                    <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </div>
                 </div>
-                <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
-                    <i class="fa-solid fa-volume-high"></i>
-                </div>
+
             </div>
-
-        </div>
         
         `
         wordContainer.appendChild(wordCard);
