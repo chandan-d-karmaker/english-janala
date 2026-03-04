@@ -1,3 +1,8 @@
+const createElements = (arr) =>{
+    const htmlEle = arr.map(el => `<span class="btn">${el}</span>`);
+    return htmlEle.join(" ");
+}
+
 const loadLesson = () => {
     fetch("https://openapi.programming-hero.com/api/levels/all")
         .then(res => res.json())
@@ -6,7 +11,7 @@ const loadLesson = () => {
 
 const removeActive = () => {
     const lessonActvBtn = document.querySelectorAll('.lesson-btn');
-    for(const btn of lessonActvBtn){
+    for (const btn of lessonActvBtn) {
         btn.classList.remove('active');
     }
 }
@@ -21,6 +26,38 @@ const loadWords = (id) => {
             actvBtn.classList.add('active');
             displayWords(data.data)
         });
+}
+
+const loadWordDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/word/${id}`;
+
+    const res = await fetch(url);
+    const details = await res.json();
+    displayWordDetails(details.data);
+}
+
+const displayWordDetails = (word) => {
+    const detailsContainer = document.getElementById('details-container');
+    detailsContainer.innerHTML =
+        `
+                <div class="space-y-1">
+                    <h2 class="text-3xl font-bold bangla-font">${word.word} (<i class="fa-solid fa-microphone-lines"></i>:${word.pronunciation})</h2>
+                </div>
+                <div class="space-y-1">
+                    <h2 class="text-xl font-bold">Meaning</h2>
+                    <p>${word.meaning}</p>
+                </div>
+                <div class="space-y-1">
+                    <h2 class="text-xl font-bold">Example</h2>
+                    <p>${word.sentence}</p>
+                </div>
+                <div class="space-y-1">
+                    <h2 class="text-xl font-bold bangla-font">সমার্থক শব্দ গুলো</h2>
+                    <div>${createElements(word.synonyms)}</div>
+                </div>
+    
+    `
+    document.getElementById('word_detail_modal').showModal();
 }
 
 
@@ -49,12 +86,12 @@ const displayWords = (words) => {
         wordCard.innerHTML =
             `
             <div class="text-center bg-base-100 rounded-xl p-10">
-                <h2 class="text-2xl font-bold text-black mb-6">${word.word? word.word : "Word not found"}</h2>
+                <h2 class="text-2xl font-bold text-black mb-6">${word.word ? word.word : "Word not found"}</h2>
                 <p class="font-medium text-black mb-6">Meaning/Pronunciation</p>
-                <h1 class="text-2xl font-bold text-black bangla-font">${word.meaning? word.meaning : "Meaning not found" } / ${word.pronunciation? word.pronunciation : "Pronunciation not found" } </h1>
+                <h1 class="text-2xl font-bold text-black bangla-font">${word.meaning ? word.meaning : "Meaning not found"} / ${word.pronunciation ? word.pronunciation : "Pronunciation not found"} </h1>
 
                 <div class="flex justify-between mt-14">
-                    <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
+                    <div onclick="loadWordDetails(${word.id})" class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
                         <i class="fa-solid fa-circle-info"></i>
                     </div>
                     <div class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
