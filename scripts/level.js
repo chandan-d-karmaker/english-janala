@@ -1,11 +1,11 @@
-const createElements = (arr) =>{
+const createElements = (arr) => {
     const htmlEle = arr.map(el => `<span class="btn">${el}</span>`);
     return htmlEle.join(" ");
 }
 
-const manageSpinner = (status) =>{
+const manageSpinner = (status) => {
 
-    if(status == true){
+    if (status == true) {
         document.getElementById('spinner').classList.remove('hidden');
         document.getElementById('word-container').classList.add('hidden');
     } else {
@@ -142,3 +142,21 @@ const displayLesson = (lessons) => {
 }
 
 loadLesson();
+
+document.getElementById('btn-search').addEventListener('click', () => {
+    // removes active class from other buttons
+    removeActive();
+
+    const ip = document.getElementById('input-word');
+    const searchValue = ip.value.trim().toLowerCase();
+    console.log(searchValue);
+
+    fetch("https://openapi.programming-hero.com/api/words/all")
+        .then(res => res.json())
+        .then(data => {
+            const allWords = data.data;
+            const filterWords = allWords.filter((word) => word.word.toLowerCase().includes(searchValue));
+            displayWords(filterWords);
+        })
+
+})
