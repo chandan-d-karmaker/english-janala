@@ -104,10 +104,14 @@ const displayWords = (words) => {
         const wordCard = document.createElement("div");
         wordCard.innerHTML =
             `
-            <div class="text-center bg-base-100 rounded-xl p-10">
+            <div class="text-center bg-base-100 rounded-xl md:p-10 p-5">
                 <h2 class="text-2xl font-bold text-black mb-6">${word.word ? word.word : "Word not found"}</h2>
-                <p class="font-medium text-black mb-6">Meaning/Pronunciation</p>
-                <h1 class="text-2xl font-bold text-black bangla-font">${word.meaning ? word.meaning : "Meaning not found"} / ${word.pronunciation ? word.pronunciation : "Pronunciation not found"} </h1>
+
+                <p>
+                    Meaning/Pronunciation
+                </p>
+
+                <h1 class="text-xl md:text-2xl font-bold text-black bangla-font">${word.meaning ? word.meaning : "Meaning not found"} / ${word.pronunciation ? word.pronunciation : "Pronunciation not found"} </h1>
 
                 <div class="flex justify-between mt-14">
                     <div onclick="loadWordDetails(${word.id})" class="btn bg-[#1A91FF1A] hover:bg-[#1a90ff85]">
