@@ -11,6 +11,8 @@ A bilingual English vocabulary learning web app for Bengali-speaking learners. B
 
 Open `index.html` in your browser, or visit the live link [English Janala](https://english-janala-ck.pages.dev/).
 
+**Full documentation:** [DOCUMENTATION.md](./DOCUMENTATION.md)
+
 ## Features
 
 - **Lesson levels** — Load and switch between vocabulary lessons fetched from the API
