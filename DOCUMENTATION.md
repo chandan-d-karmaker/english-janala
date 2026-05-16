@@ -47,35 +47,8 @@ The app is a static front-end project: no build step, no package manager, and no
 | FAQ | Collapsible frequently asked questions |
 | Bilingual UI | English copy with Bangla (`Hind Siliguri`) where appropriate |
 
-### 2.2 High-level data flow
 
-```mermaid
-flowchart LR
-    subgraph Client["Browser (English Janala)"]
-        HTML[index.html]
-        JS[level.js]
-        CSS[style.css]
-    end
-
-    subgraph API["Programming Hero Open API"]
-        L[/api/levels/all]
-        LV[/api/level/:id]
-        W[/api/word/:id]
-        ALL[/api/words/all]
-    end
-
-    HTML --> JS
-    JS -->|On load| L
-    JS -->|Lesson click| LV
-    JS -->|Info click| W
-    JS -->|Search click| ALL
-    L --> JS
-    LV --> JS
-    W --> JS
-    ALL --> JS
-```
-
-### 2.3 Request lifecycle (lesson load)
+### 2.2 Request lifecycle (lesson load)
 
 ```mermaid
 sequenceDiagram
